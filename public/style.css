@@ -1,0 +1,11 @@
+main {
+  min-height: 100vh;
+}
+
+.register-banner {
+  background-image: url('/images/camera-banner.jpg');
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  background-position: left top;
+  height: 100%;
+}
