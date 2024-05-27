@@ -1,15 +1,32 @@
 <% extend('layout'); %>
   <h1 class="display-4">Gallery</h1>
-  <div class="col-sm-12">
-    <div class="masonry masonry-columns-3 visually-hidden" id="masonry-container">
-      <!-- Pictures get rendered -->
+  <div class="grid" style="margin: 50px;">
+    <!-- columns -->
+    <div class="grid-col grid-col--1"></div>
+    <div class="grid-col grid-col--2"></div>
+    <div class="grid-col grid-col--3"></div>
+    <div class="grid-col grid-col--4"></div>
+    <!-- items -->
+    <div class="grid-item mb-2">
+      <img src="https://picsum.photos/1200/800" class="content" alt="">
     </div>
-    <div class="text-center">
-      <div class="spinner-border" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
+    <div class="grid-item mb-2">
+      <img src="https://picsum.photos/1300/800" class="content" alt="">
     </div>
-    
+    <div class="grid-item mb-2">
+      <img src="https://picsum.photos/1200/800" class="content" alt="">
+    </div>
+    <div class="grid-item mb-2">
+      <img src="https://picsum.photos/1200/800" class="content" alt="">
+    </div>
   </div>
+  <script src="https://unpkg.com/colcade@0/colcade.js"></script>
+  <script>
+    // selector string as first argument
+    var colc = new Colcade('.grid', {
+      columns: '.grid-col',
+      items: '.grid-item'
+    });
+  </script>
 
   <script src="scripts/infiniteScroll.js"></script>
