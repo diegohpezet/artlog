@@ -1,24 +1,75 @@
 <% extend('layout'); %>
   <h1 class="display-4">Gallery</h1>
+    <span class="visually-hidden">Loading...</span>
+  </div>
   <div class="grid" style="margin: 50px;">
     <!-- columns -->
     <div class="grid-col grid-col--1"></div>
     <div class="grid-col grid-col--2"></div>
     <div class="grid-col grid-col--3"></div>
-    <div class="grid-col grid-col--4"></div>
     <!-- items -->
-    <div class="grid-item mb-2">
-      <img src="https://picsum.photos/1200/800" class="content" alt="">
-    </div>
-    <div class="grid-item mb-2">
-      <img src="https://picsum.photos/1300/800" class="content" alt="">
-    </div>
-    <div class="grid-item mb-2">
-      <img src="https://picsum.photos/1200/800" class="content" alt="">
-    </div>
-    <div class="grid-item mb-2">
-      <img src="https://picsum.photos/1200/800" class="content" alt="">
-    </div>
+    <figure class="grid-item">
+      <img src="https://picsum.photos/300/200" class="content rounded" alt="">
+      <figcaption>
+        <div>
+          <div class="d-flex">
+            <img src="https://cdn-icons-png.flaticon.com/512/9187/9187604.png" class="rounded-pill profile-picture" >
+            <h5 class="ms-1">User</h5>
+          </div>
+        </div>
+        <div>
+          <button class="btn btn-light btn-sm shadow-sm">
+            <i class="bi bi-heart"></i>
+          </button>
+          <button class="btn btn-light btn-sm shadow-sm">
+            <i class="bi bi-download"></i>
+          </button>
+        </div>
+      </figcaption>
+    </figure>
+
+    <figure class="grid-item">
+      <img src="https://picsum.photos/300/200" class="content rounded" alt="">
+      <figcaption>
+        <div>
+          <div class="d-flex">
+            <img src="https://cdn-icons-png.flaticon.com/512/9187/9187604.png" class="rounded-pill profile-picture" >
+            <h5 class="ms-1">User</h5>
+          </div>
+        </div>
+        <div>
+          <button class="btn btn-light btn-sm shadow-sm">
+            <i class="bi bi-heart"></i>
+          </button>
+          <button class="btn btn-light btn-sm shadow-sm">
+            <i class="bi bi-download"></i>
+          </button>
+        </div>
+      </figcaption>
+    </figure>
+
+    <figure class="grid-item">
+      <img src="https://picsum.photos/300/200" class="content rounded" alt="">
+      <figcaption>
+        <div>
+          <div class="d-flex">
+            <img src="https://cdn-icons-png.flaticon.com/512/9187/9187604.png" class="rounded-pill profile-picture" >
+            <h5 class="ms-1">User</h5>
+          </div>
+        </div>
+        <div>
+          <button class="btn btn-light btn-sm shadow-sm">
+            <i class="bi bi-heart"></i>
+          </button>
+          <button class="btn btn-light btn-sm shadow-sm">
+            <i class="bi bi-download"></i>
+          </button>
+        </div>
+      </figcaption>
+    </figure>
+  </div>
+  <div class="text-center">
+    <div class="spinner-border" role="status"></div>
   </div>
   <script src="https://unpkg.com/colcade@0/colcade.js"></script>
   <script>
