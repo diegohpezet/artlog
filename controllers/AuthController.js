@@ -16,7 +16,7 @@ const AuthController = {
           ],
         },
       });
-      if (existsUser) return res.status(400).json({ error: "Username or email already taken" });
+      if (existsUser) return res.status(400).render('register', { error: "Username or email already taken" });
 
       // Hash password
       const salt = await bcrypt.genSalt(10);
@@ -24,24 +24,29 @@ const AuthController = {
 
       // Create user
       const newUser = await User.create({ username, password: hashedPassword, email });
-      res.json(newUser);
+      res.status(200).redirect('/login');
     } catch (err) {
-      res.status(500).json({ error: err.message });
+      res.status(500).render('register', { error: err.message });
     }
   },
 
   signin: async (req, res) => {
-    const { email, password } = req.body;
-    const user = await User.findOne({ where: { email } });
+    const { username, password } = req.body;
+    const user = await User.findOne({ where: { username } });
     if (user && (await bcrypt.compare(password, user.password))) {
-      const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
+      const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRES_IN,
       });
       res.cookie('token', token, { httpOnly: true });
-      res.status(200).json({ message: "Successful login!", token });
+      res.status(200).redirect('/');
     } else {
-      res.status(400).json({ error: "Invalid email or password" });
+      res.status(400).render('login', { error: "Invalid username or password" });
     }
+  },
+
+  signout: (req, res) => {
+    res.clearCookie('token');
+    res.status(200).redirect('/');
   }
 };
 
