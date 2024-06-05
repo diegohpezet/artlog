@@ -5,10 +5,12 @@ const authenticateToken = require('../middlewares/authenticateToken');
 // Import controller
 const UserController = require('../controllers/UserController');
 
+router.use(authenticateToken)
+
 router.get('/', UserController.getAll);
 router.get('/:id', UserController.getById);
-router.put('/:id', authenticateToken, UserController.update);
-router.put('/:id/password', authenticateToken, UserController.updatePassword);
-router.delete('/:id', authenticateToken, UserController.delete);
+router.put('/:id', UserController.update);
+router.put('/:id/password', UserController.updatePassword);
+router.delete('/:id', UserController.delete);
 
 module.exports = router

@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const authenticateToken = require('../middlewares/authenticateToken');
+
+router.use(authenticateToken)
 
 router.get('/', (req, res) => {
-  res.render("index");
+  res.render("index", { user: req.user});
 });
 
 router.get('/login', (req, res) => {

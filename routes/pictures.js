@@ -5,8 +5,10 @@ const authenticateToken = require('../middlewares/authenticateToken');
 // Import controller
 const PictureController = require('../controllers/PictureController');
 
+router.use(authenticateToken)
+
 router.get('/', PictureController.getAll);
 router.get('/:id', PictureController.getById);
-router.post('/', authenticateToken, PictureController.create);
+router.post('/', PictureController.create);
 
 module.exports = router
