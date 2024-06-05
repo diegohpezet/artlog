@@ -1,17 +1,21 @@
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 
 const authenticateToken = (req, res, next) => {
   const token = req.cookies.token;
-  if (!token) {
-    return res.status(401).json({ error: 'Unauthorized' });
+  console.log('JWT token:', token)
+  if (token) {
+    try {
+      const decoded = jwt.verify(token, 'secret');
+      req.user = decoded;
+      res.locals.isLoggedIn = true; // Set a local variable for use in views
+    } catch (error) {
+      console.log('Token is not valid');
+      res.locals.isLoggedIn = false;
+    }
+  } else {
+    res.locals.isLoggedIn = false;
   }
-  try {
-    const decoded = jwt.verify(token, 'secret');
-    req.userId = decoded;
-    next();
-  } catch (error) {
-    res.status(403).json({ error: "Invalid token", token });
-  }
-}
+  next();
+};
 
 module.exports = authenticateToken;
