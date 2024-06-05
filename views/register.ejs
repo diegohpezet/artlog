@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/bootstrap.min.css">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/style.css">
   <title>ArtLog - Register</title>
 </head>
 
@@ -20,7 +20,7 @@
           <h1>Join us on Artlog</h1>
           <span>Already have an account? <a href="/login">Login</a></span>
         </div>
-        <form action="/signup" method="post">
+        <form action="/auth/signup" method="post">
           <div class="form-group">
             <label for="username">Username</label>
             <input type="text" class="form-control" id="username" name="username" required>
@@ -46,6 +46,9 @@
           <div class="m-3 text-center d-grid">
             <button type="submit" class="btn btn-block btn-dark py-2">Register</button>
             <p class="mt-2">Forgot your password? <a href="#">Click here!</a></p>
+            <% if (typeof error !== 'undefined') { %>
+              <p class="mt-5 text-danger"><%= error %></p>
+            <% } %>
           </div>
         </form>
       </div>
