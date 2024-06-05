@@ -13,6 +13,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.engine('ejs', require('express-ejs-extend'));
 app.set('view engine', 'ejs');
+app.use('/', express.static(__dirname + '/public'))
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
 app.use('/icons', express.static(__dirname + '/node_modules/bootstrap-icons/font'));
