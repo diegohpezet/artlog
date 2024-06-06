@@ -8,17 +8,20 @@ const Picture = sequelize.define('Picture', {
     primaryKey: true,
     autoIncrement: true
   },
-  title: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
   url: {
     type: DataTypes.STRING,
     allowNull: false
   },
   tags: {
-    type: DataTypes.JSON,
-    defaultValue: []
+    type: DataTypes.STRING,
+    allowNull: false,
+    get() {
+        return this.getDataValue('tags').split(';')
+    },
+    set(val) {
+       this.setDataValue('tags',val.join(';'));
+    },
+    defaultValue: ""
   },
   views: {
     type: DataTypes.INTEGER,
@@ -44,6 +47,5 @@ const Picture = sequelize.define('Picture', {
 });
 
 Picture.sync();
-// User.sync({ alter: true })
 
 module.exports = Picture;

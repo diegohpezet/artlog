@@ -1,4 +1,5 @@
 const Picture = require('../models/Picture');
+const { cloudinaryUpload } = require('../config/cloudinaryConfig')
 
 const PictureController = {
   getAll: async (req, res) => {
@@ -25,13 +26,16 @@ const PictureController = {
   },
 
   create: async (req, res) => {
-    const { title, tags } = req.body;
-    const user = req.userId;
     try {
-      const newPicture = await Picture.create({ title, tags, user });
-      res.status(201).json(newPicture);
+      if(!req.files.image) {
+        res.json({error: "No se ha seleccionado ninguna imagen!!"})
+      }
+      const image = req.files.image
+      const result = await cloudinaryUpload(image.tempFilePath)
+      await Picture.create({url: result.secure_url, user: req.user.id})
+      res.json({message: "Imagen subida exitosamente!"})
     } catch (error) {
-      res.status(500).json({ error: 'Error creating picture' });
+      res.json({error: `Error uploading image: ${error}`})
     }
   }
 };
