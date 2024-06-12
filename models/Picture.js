@@ -1,5 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
+const User = require('./User');
 
 // Define picture model
 const Picture = sequelize.define('Picture', {
@@ -46,6 +47,7 @@ const Picture = sequelize.define('Picture', {
   }
 });
 
+Picture.belongsTo(User, { foreignKey: 'user' })
 Picture.sync();
 
 module.exports = Picture;

@@ -1,10 +1,13 @@
 const Picture = require('../models/Picture');
-const { cloudinaryUpload } = require('../config/cloudinaryConfig')
+const User = require('../models/User');
+const { cloudinaryUpload } = require('../config/cloudinaryConfig');
 
 const PictureController = {
   getAll: async (req, res) => {
     try {
-      const pictures = await Picture.findAll();
+      const pictures = await Picture.findAll({
+        include: [User]
+      });
       res.json(pictures);
     } catch (error) {
       res.status(500).json({ error: 'Error retrieving pictures' });
