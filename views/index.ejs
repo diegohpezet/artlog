@@ -1,81 +1,10 @@
 <% extend('layout'); %>
   <h1 class="display-4">Gallery</h1>
-  <div class="grid" style="margin: 50px;">
-    <!-- columns -->
-    <div class="grid-col grid-col--1"></div>
-    <div class="grid-col grid-col--2"></div>
-    <div class="grid-col grid-col--3"></div>
-    <!-- items -->
-    <figure class="grid-item">
-      <img src="https://picsum.photos/300/200" class="content rounded" alt="">
-      <figcaption>
-        <div>
-          <div class="d-flex">
-            <img src="https://cdn-icons-png.flaticon.com/512/9187/9187604.png" class="rounded-pill profile-picture" >
-            <h5 class="ms-1">User</h5>
-          </div>
-        </div>
-        <div>
-          <button class="btn btn-light btn-sm shadow-sm">
-            <i class="bi bi-heart"></i>
-          </button>
-          <button class="btn btn-light btn-sm shadow-sm">
-            <i class="bi bi-download"></i>
-          </button>
-        </div>
-      </figcaption>
-    </figure>
-
-    <figure class="grid-item">
-      <img src="https://picsum.photos/300/200" class="content rounded" alt="">
-      <figcaption>
-        <div>
-          <div class="d-flex">
-            <img src="https://cdn-icons-png.flaticon.com/512/9187/9187604.png" class="rounded-pill profile-picture" >
-            <h5 class="ms-1">User</h5>
-          </div>
-        </div>
-        <div>
-          <button class="btn btn-light btn-sm shadow-sm">
-            <i class="bi bi-heart"></i>
-          </button>
-          <button class="btn btn-light btn-sm shadow-sm">
-            <i class="bi bi-download"></i>
-          </button>
-        </div>
-      </figcaption>
-    </figure>
-
-    <figure class="grid-item">
-      <img src="https://picsum.photos/300/200" class="content rounded" alt="">
-      <figcaption>
-        <div>
-          <div class="d-flex">
-            <img src="https://cdn-icons-png.flaticon.com/512/9187/9187604.png" class="rounded-pill profile-picture" >
-            <h5 class="ms-1">User</h5>
-          </div>
-        </div>
-        <div>
-          <button class="btn btn-light btn-sm shadow-sm">
-            <i class="bi bi-heart"></i>
-          </button>
-          <button class="btn btn-light btn-sm shadow-sm">
-            <i class="bi bi-download"></i>
-          </button>
-        </div>
-      </figcaption>
-    </figure>
+  <div class="row g-0" id="gallery">
+    <!-- Images get rendered here! -->
   </div>
   <div class="text-center">
     <div class="spinner-border" role="status"></div>
   </div>
-  <script src="https://unpkg.com/colcade@0/colcade.js"></script>
-  <script>
-    // selector string as first argument
-    var colc = new Colcade('.grid', {
-      columns: '.grid-col',
-      items: '.grid-item'
-    });
-  </script>
 
-  <script src="scripts/infiniteScroll.js"></script>
+  <script src="scripts/imageGallery.js"></script>
