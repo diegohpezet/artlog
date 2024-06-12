@@ -3,10 +3,15 @@ const User = require('../models/User');
 const { Op } = require('sequelize');
 const jwt = require('jsonwebtoken');
 
+const emailRegex = RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/); 
 const AuthController = {
   signup: async (req, res) => {
     try {
       const { username, password, email } = req.body;
+      // Check if valid email
+      if (!emailRegex.test(email)) {
+        res.status(500).render('register', { error: "Invalid email" });
+      }
       // Check if username or email already exists
       const existsUser = await User.findOne({
         where: {
