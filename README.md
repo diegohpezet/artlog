@@ -46,6 +46,19 @@ CLOUD_API_SECRET = your_cloudinary_api_secret
 npm run start
 ```
 
+## To-Do
+- Create profile view
+  - Upload profile picture
+  - Allow users to update their data
+  - Be able to follow users
+  - Be able to search users
+- Create single picture view
+- Add tags to pictures
+  - Edit tags
+  - Filter pictures by tag
+- Be able to remove pictures
+- Like/Download functionality
+
 ## Contributing
 
 Contributions are welcome! If you have any ideas for improving the app or want to report a bug, please open an issue or submit a pull request.
