@@ -32,7 +32,7 @@ const AuthController = {
 
   signin: async (req, res) => {
     const { username, password } = req.body;
-    const user = await User.findOne({ where: { username } });
+    const user = await User.scope('withPassword').findOne({ where: { username } });
     if (user && (await bcrypt.compare(password, user.password))) {
       const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRES_IN,
