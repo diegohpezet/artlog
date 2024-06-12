@@ -16,16 +16,24 @@ const User = sequelize.define('User', {
   },
   password: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
   },
   email: {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true
   }
+}, {
+  defaultScope: {
+    attributes: { exclude: ['password', 'email', 'createdAt', 'updatedAt'] }
+  },
+  scopes: {
+    withPassword: {
+      attributes: { }
+    }
+  }
 });
 
 User.sync();
-// User.sync({ alter: true })
 
 module.exports = User;
