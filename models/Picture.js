@@ -1,6 +1,7 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 const User = require('./User');
+const Like = require('./Like');
 
 // Define picture model
 const Picture = sequelize.define('Picture', {
@@ -24,11 +25,6 @@ const Picture = sequelize.define('Picture', {
     },
     defaultValue: ""
   },
-  views: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    defaultValue: 0
-  },
   likes: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -47,7 +43,9 @@ const Picture = sequelize.define('Picture', {
   }
 });
 
-Picture.belongsTo(User, { foreignKey: 'user' })
+Picture.belongsTo(User, { foreignKey: 'user' });
+Picture.hasMany(Like, { as: 'likedBy', foreignKey: 'picture' })
+
 Picture.sync();
 
 module.exports = Picture;

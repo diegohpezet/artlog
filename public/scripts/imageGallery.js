@@ -1,3 +1,5 @@
+import { currentUserId } from "./decodeToken.js";
+
 const gallery = document.getElementById("gallery");
 
 const getPictures = () => {
@@ -5,10 +7,20 @@ const getPictures = () => {
     .then(response => response.json())
     .then(data => {
       data.forEach(picture => {
-        createCard({ url: picture.url, user: picture.User });
+        let isLiked = false;
+        if (currentUserId) {
+          // Check if user liked the picture
+          picture.likedBy.forEach(element => {
+            if (element.user == currentUserId) {
+              isLiked = true;
+              return;
+            }
+          })
+        }
+        createCard({ id: picture.id, url: picture.url, user: picture.User, isLiked });
       });
     })
-}
+};
 
 const createCard = (data) => {
   const figureContainer = document.createElement('div');
@@ -38,14 +50,44 @@ const createCard = (data) => {
   btnContainer.classList.add('options')
 
   const likeBtn = document.createElement('button');
-  likeBtn.classList.add('btn', 'btn-outline-light', 'btn-sm', 'shadow-sm', 'mx-1');
-  likeBtn.innerHTML = '<i class="bi bi-heart"></i>';
+  if (!data.isLiked) {
+    likeBtn.classList.add('btn', 'btn-outline-light', 'btn-sm', 'shadow-sm', 'mx-1');
+  } else {
+    likeBtn.classList.add('btn', 'btn-outline-danger', 'btn-sm', 'shadow-sm', 'mx-1');
+  }
+  likeBtn.innerHTML = '<i class="bi bi-heart-fill"></i>';
 
   const downloadBtn = document.createElement('button');
   downloadBtn.classList.add('btn', 'btn-outline-light', 'btn-sm', 'shadow-sm', 'mx-1');
   downloadBtn.innerHTML = '<i class="bi bi-download"></i>';
 
-  btnContainer.append(likeBtn, downloadBtn);
+  // Button functionalities
+  likeBtn.addEventListener('click', () => {
+    // Send like request
+
+    if (data.isLiked) {
+      fetch(`http://localhost:3000/likes?picture=${data.id}`, {
+        method: 'DELETE'
+      })
+      likeBtn.classList.toggle('btn-outline-danger');
+      likeBtn.classList.toggle('btn-outline-light');
+      likeBtn.innerHTML = '<i class="bi bi-heart-fill"></i>';
+      data.isLiked = !data.isLiked
+
+    } else {
+      fetch(`http://localhost:3000/likes?picture=${data.id}`, {
+        method: 'POST'
+      })
+      likeBtn.classList.toggle('btn-outline-danger');
+      likeBtn.classList.toggle('btn-outline-light');
+      likeBtn.innerHTML = '<i class="bi bi-heart-fill"></i>';
+      data.isLiked = !data.isLiked
+    }
+  })
+
+  if ( currentUserId ) {
+    btnContainer.append(likeBtn, downloadBtn);
+  }
   userInfo.append(userImg, userName);
   figcaption.append(userInfo);
   figure.append(img, figcaption, btnContainer);
@@ -55,28 +97,3 @@ const createCard = (data) => {
 };
 
 getPictures()
-
-/* 
-setTimeout(() => {
-  for (let i = 0; i <= 40; i++) {
-    let random = Math.floor(Math.random() * (1200 - 500 + 1) + 500);
-    let random2 = Math.floor(Math.random() * (1200 - 500 + 1) + 500);
-
-    createCard({ url: `https://picsum.photos/${random}/${random2}?random=1` });
-  }
-  masonryContainer.classList.remove('visually-hidden');
-}, 2000);
-
-window.addEventListener('scroll', () => {
-  const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-  if (scrollTop + clientHeight >= scrollHeight - 6) {
-    setTimeout(() => {
-      for (let i = 0; i <= 6; i++) {
-        let random = Math.floor(Math.random() * (1200 - 500 + 1) + 500);
-        let random2 = Math.floor(Math.random() * (1200 - 500 + 1) + 500);
-
-        createCard({ url: `https://picsum.photos/${random}/${random2}?random=1` });
-      }
-    }, 500);
-  }
-}); */
