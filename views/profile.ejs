@@ -1,0 +1,47 @@
+<% extend('layout'); %>
+
+<section class="mt-5">
+  <div class="text-center">
+    <figure>
+      <img src="<%= user.profilePicture%>" alt="" class="profile-picture shadow-sm" style="width: 160px; height: 160px;">
+      <figcaption>
+        <h1>@<%= user.username %></h1>
+      </figcaption>
+    </figure>
+    <div class="d-flex justify-content-center">
+      <button class="btn btn-primary mx-2"><i class="bi bi-plus-lg"></i> Follow</button>
+      <button class="btn btn-light mx-2"><i class="bi bi-paperclip"></i> Share</button>
+    </div>
+  </div>
+</section>
+
+<section class="mt-3">
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="picturesTab" data-bs-toggle="tab" data-bs-target="#pictures-pane" type="button" role="tab" aria-controls="pictures-pane" aria-selected="true">Pictures</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="likedPicturestab" data-bs-toggle="tab" data-bs-target="#liked-pane" type="button" role="tab" aria-controls="liked-tab-pane" aria-selected="false">Liked</button>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane fade show active"id="pictures-pane" role="tabpanel" aria-labelledby="pictures-tab" tabindex="0">
+      <div class="row g-0 mt-3" id="user-pictures" data-user-id="<%= user.id %>">
+        <!-- User pictures get rendered here -->
+        <div class="spinner-border text-dark mt-3 m-auto" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="liked-pane" role="tabpanel" aria-labelledby="liked-tab" tabindex="0">
+      <!-- User liked pictures get rendered here -->
+      <div class="row g-0 mt-3" id="user-liked-pictures" data-user-id="<%= user.id %>">
+        <div class="spinner-border text-dark mt-3 m-auto" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    </div>
+  </div>  
+</section>
+
+<script type="module" src="/scripts/profileGallery.js"></script>
