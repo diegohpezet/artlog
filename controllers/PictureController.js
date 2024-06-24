@@ -1,6 +1,7 @@
 const Picture = require('../models/Picture');
 const User = require('../models/User');
 const { cloudinaryUpload } = require('../config/cloudinaryConfig');
+const request = require('superagent');
 const Like = require('../models/Like');
 
 const PictureController = {
@@ -44,6 +45,26 @@ const PictureController = {
       res.json({message: "Imagen subida exitosamente!"})
     } catch (error) {
       res.json({error: `Error uploading image: ${error}`})
+    }
+  },
+
+  download: async (req, res) => {
+    const { id } =req.params
+    try {
+      const picture = await Picture.findByPk(id)
+      if (picture) {
+        res.set(
+          'Content-Disposition',
+          `attachment; filename=artlog_${id}.png`
+        );
+      
+        await request(picture.url).pipe(res);  
+      } else {
+        return res.status(404).json({error: 'Picture not found'})
+      }
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({error: 'Error downloading picture'})
     }
   }
 };

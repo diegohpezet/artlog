@@ -1,4 +1,5 @@
 import { currentUserId } from "./decodeToken.js";
+import { downloadPicture } from "./downloadPicture.js";
 
 const gallery = document.getElementById("gallery");
 
@@ -59,7 +60,8 @@ const createCard = (data) => {
 
   const downloadBtn = document.createElement('button');
   downloadBtn.classList.add('btn', 'btn-outline-light', 'btn-sm', 'shadow-sm', 'mx-1');
-  downloadBtn.innerHTML = '<i class="bi bi-download"></i>';
+  downloadBtn.innerHTML = `<i class="bi bi-download"></i>`;
+  downloadBtn.addEventListener('click', () => { downloadPicture(data.id) })
 
   // Button functionalities
   likeBtn.addEventListener('click', () => {
