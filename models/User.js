@@ -1,4 +1,4 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
 // Define user model
@@ -22,6 +22,10 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true
+  },
+  profilePicture: {
+    type: DataTypes.STRING,
+    allowNull: false
   }
 }, {
   defaultScope: {

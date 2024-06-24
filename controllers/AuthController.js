@@ -27,8 +27,11 @@ const AuthController = {
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(password, salt);
 
+      // Default profile picture
+      const profilePicture = `https://api.dicebear.com/8.x/avataaars/svg?seed=${username}&flip=true`
+
       // Create user
-      const newUser = await User.create({ username, password: hashedPassword, email });
+      const newUser = await User.create({ username, password: hashedPassword, email, profilePicture });
       res.status(200).redirect('/login');
     } catch (err) {
       res.status(500).render('register', { error: err.message });
@@ -42,7 +45,7 @@ const AuthController = {
       const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRES_IN,
       });
-      res.cookie('token', token, { httpOnly: true });
+      res.cookie('token', token);
       res.status(200).redirect('/');
     } else {
       res.status(400).render('login', { error: "Invalid username or password" });
