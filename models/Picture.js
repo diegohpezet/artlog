@@ -25,11 +25,6 @@ const Picture = sequelize.define('Picture', {
     },
     defaultValue: ""
   },
-  likes: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    defaultValue: 0
-  },
   createdAt: {
     type: DataTypes.DATE,
     allowNull: false
@@ -37,15 +32,10 @@ const Picture = sequelize.define('Picture', {
   user: {
     type: DataTypes.INTEGER,
     references: {
-      model: 'Users',
+      model: User,
       key: 'id'
     }
   }
 });
-
-Picture.belongsTo(User, { foreignKey: 'user' });
-Picture.hasMany(Like, { as: 'likedBy', foreignKey: 'picture' })
-
-Picture.sync();
 
 module.exports = Picture;

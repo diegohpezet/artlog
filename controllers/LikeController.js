@@ -1,4 +1,4 @@
-const Like = require('../models/Like');
+const { Like } = require('../models');
 
 const LikeController = {
   like: async (req, res) => {

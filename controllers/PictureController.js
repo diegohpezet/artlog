@@ -1,8 +1,6 @@
-const Picture = require('../models/Picture');
-const User = require('../models/User');
 const { cloudinaryUpload } = require('../config/cloudinaryConfig');
 const request = require('superagent');
-const Like = require('../models/Like');
+const {User, Like, Picture} = require('../models')
 
 const PictureController = {
   getAll: async (req, res) => {

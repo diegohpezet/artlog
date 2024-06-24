@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const User = require('../models/User');
+const { User, Like, Picture } = require('../models')
 
 const UserController = {
   getAll: async (req, res) => {
@@ -17,6 +17,52 @@ const UserController = {
       res.json(user);
     } catch (err) {
       res.status(500).json({ error: err.message });
+    }
+  },
+
+  getPictures: async (req, res) => {
+    const { id } = req.params;
+    try {
+      const pictures = await Picture.findAll({
+        where: { 
+          user: id 
+        }
+      })
+
+      if (!pictures) {
+        return res.status(404).json({error: "Invalid user"})
+      }
+      
+      return res.status(200).json(pictures)
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json({error: "Internal server error"})
+    }
+  },
+
+  getLikedPictures: async (req, res) => {
+    const { id } = req.params;
+    try {
+      const likedPictures = await Like.findAll({
+        where: { user: id },
+        include: [{
+          model: Picture,
+          as: 'picture',
+          include: [{
+            model: User,
+            as: 'user'
+          }]
+        }]
+      })
+
+      if (!likedPictures) {
+        return res.status(404).json({error: "Invalid user"})
+      }
+
+      return res.status(200).json(likedPictures);
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json({error: "Error retreiving pictures"})
     }
   },
 
@@ -50,6 +96,19 @@ const UserController = {
       res.status(500).json({ error: err.message });
     }
   },
+
+  renderProfile: async (req, res) => {
+    const { id } = req.params;
+    try {
+      const user = await User.findByPk(id);
+      if (!user) {
+        return res.redirect('/')
+      }
+      return res.render('profile', { user });  
+    } catch (error) {
+      return res.redirect('/')
+    }
+  }
 };
 
 module.exports = UserController;

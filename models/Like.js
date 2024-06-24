@@ -1,12 +1,14 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
+const Picture = require('./Picture');
+const User = require('./User')
 
 const Like = sequelize.define('Like', {
   user: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     references: {
-      model: 'Users',
+      model: User,
       key: 'id'
     }
   },
@@ -14,14 +16,12 @@ const Like = sequelize.define('Like', {
     type: DataTypes.INTEGER,
     primaryKey: true,
     references: {
-      model: 'Pictures',
+      model: Picture,
       key: 'id'
     }
   }
 }, {
   timestamps: false,
 })
-
-Like.sync({alter: true});
 
 module.exports = Like;
