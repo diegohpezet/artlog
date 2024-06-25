@@ -25,7 +25,7 @@
             </li>
             <%if (isLoggedIn) { %>
               <li class="nav-item">
-                <a class="nav-link" href="/login"><i class="bi bi-person d-md-none"></i> Profile</a>
+                <a class="nav-link" href="/users/<%= user.id %>/profile"><i class="bi bi-person d-md-none"></i> Profile</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#uploadContent"><i class="bi bi-upload d-md-none"></i> Upload content!</a>

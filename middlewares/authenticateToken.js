@@ -7,6 +7,7 @@ const authenticateToken = (req, res, next) => {
       const decoded = jwt.verify(token, 'secret');
       req.user = decoded;
       res.locals.isLoggedIn = true; // Set a local variable for use in views
+      res.locals.user = decoded;
     } catch (error) {
       res.locals.isLoggedIn = false;
     }
