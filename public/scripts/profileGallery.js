@@ -17,10 +17,23 @@ const getPictures = async () => {
   } else {
     picturesPane.innerHTML = "";
     data.forEach(picture => {
-      createCard(picture, picturesPane, {showUserInfo: false, showSocialActions: currentUserId ? true : false})
+      if (currentUserId) {
+        // Check if user liked the picture
+        picture.likedBy.forEach(element => {
+          if (element.user == currentUserId) {
+            picture.isLiked = true;
+            return;
+          }
+        })
+      }
+      createCard(picture, picturesPane, { 
+        showUserInfo: false, 
+        showSocialActions: currentUserId ? true : false,
+        managePicture: currentUserId == userId ? true : false
+      })
     });
   }
-  
+
 }
 
 const getLikedPictures = async () => {
@@ -36,8 +49,16 @@ const getLikedPictures = async () => {
   } else {
     likedPicturesPane.innerHTML = ""
     data.forEach(picture => {
-      console.log(picture)
-      createCard(picture.Picture, likedPicturesPane, {showUserInfo: true, showSocialActions: currentUserId ? true : false})
+      if (currentUserId) {
+        // Check if user liked the picture
+        picture.likedBy.forEach(element => {
+          if (element.user == currentUserId) {
+            picture.isLiked = true;
+            return;
+          }
+        })
+      }
+      createCard(picture, likedPicturesPane, { showUserInfo: true, showSocialActions: currentUserId ? true : false })
     })
   }
 }

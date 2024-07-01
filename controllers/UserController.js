@@ -24,15 +24,16 @@ const UserController = {
     const { id } = req.params;
     try {
       const pictures = await Picture.findAll({
-        where: { 
-          user: id 
-        }
+        where: { user: id },
+        include: [{
+          model: Like,
+          as: 'likedBy'
+        }]
       })
 
       if (!pictures) {
         return res.status(404).json({error: "Invalid user"})
       }
-      
       return res.status(200).json(pictures)
     } catch (error) {
       console.log(error)
@@ -47,10 +48,11 @@ const UserController = {
         where: { user: id },
         include: [{
           model: Picture,
-          as: 'picture',
           include: [{
-            model: User,
-            as: 'user'
+            model: User
+          }, {
+            model: Like,
+            as: 'likedBy'
           }]
         }]
       })
@@ -58,8 +60,18 @@ const UserController = {
       if (!likedPictures) {
         return res.status(404).json({error: "Invalid user"})
       }
+  
+      const formattedPictures = likedPictures.map(picture => ({
+        id: picture.Picture.id,
+        user: picture.Picture.User,
+        url: picture.Picture.url,
+        tags: picture.Picture.tags,
+        likedBy: picture.Picture.likedBy,
+        createdAt: picture.Picture.createdAt,
+        updatedAt: picture.Picture.updatedAt
+      }));
 
-      return res.status(200).json(likedPictures);
+      return res.status(200).json(formattedPictures);
     } catch (error) {
       console.log(error)
       return res.status(500).json({error: "Error retreiving pictures"})
