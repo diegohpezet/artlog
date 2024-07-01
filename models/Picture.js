@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const { User, Like } = require('./index')
+const { User } = require('./index')
 
 // Define picture model
 const Picture = sequelize.define('Picture', {
