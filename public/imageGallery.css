@@ -18,15 +18,14 @@
   font-weight: 600;
 }
 .picture .options {
+  margin-left: 5px;
   position: absolute;
   bottom: 0;
   right: 0;
   padding: 15px;
   opacity: 0;
 }
-.picture .options {
-  margin-left: 5px;
-}
+
 .picture:hover {
   cursor: pointer;
 }
