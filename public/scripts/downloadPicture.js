@@ -2,7 +2,7 @@ const downloadToast = document.getElementById('downloadToast');
 const errorToast = document.getElementById('errorToast');
 
 export async function downloadPicture(id) {
-  const resp = await fetch(`/pictures/${id}/download`)
+  const resp = await fetch(`/api/pictures/${id}/download`)
   if (!resp.ok) {
     const toast = bootstrap.Toast.getOrCreateInstance(errorToast)
     toast.show();

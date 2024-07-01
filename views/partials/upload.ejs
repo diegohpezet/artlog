@@ -14,14 +14,14 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form method="post" action="/pictures" enctype="multipart/form-data">
+        <form method="post" action="/api/pictures" enctype="multipart/form-data">
           <!--Image-->
           <div>
             <div class="mb-4 d-flex justify-content-center">
               <label class="form-label m-1" for="userFile" id="fileUploadLabel">
                 <i class="bi bi-cloud-plus upload-icon"></i>
               </label>
-              <img src="" alt="" class="d-none" id="selectedImage">
+              <img src="" alt="" class="d-none w-100" id="selectedImage">
               <input type="file" class="form-control d-none" name="image" id="userFile" accept="image/*"
                 onchange="displaySelectedImage(event, 'selectedImage')" />
             </div>

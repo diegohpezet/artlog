@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const fileUpload = require('express-fileupload');
-const authenticateToken = require('../middlewares/authenticateToken');
+const authenticateToken = require('../../middlewares/authenticateToken');
 
 // Import controller
-const PictureController = require('../controllers/PictureController');
+const PictureController = require('../../controllers/PictureController');
 
 router.use(authenticateToken)
 

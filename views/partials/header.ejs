@@ -25,17 +25,17 @@
             </li>
             <%if (isLoggedIn) { %>
               <li class="nav-item">
-                <a class="nav-link" href="/users/<%= user.id %>/profile"><i class="bi bi-person d-md-none"></i> Profile</a>
+                <a class="nav-link" href="/users/<%= user.id %>"><i class="bi bi-person d-md-none"></i> Profile</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#uploadContent"><i class="bi bi-upload d-md-none"></i> Upload content!</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/auth/signout"><i class="bi bi-box-arrow-left d-md-none"></i> Logout</a>
+                <a class="nav-link" href="/api/auth/signout"><i class="bi bi-box-arrow-left d-md-none"></i> Logout</a>
               </li>
             <% } else { %>
             <li class="nav-item">
-              <a class="nav-link" href="/login">Sign in to upload content!</a>
+              <a class="nav-link" href="/auth/login">Sign in to upload content!</a>
             </li>
             <% } %>
           </ul>

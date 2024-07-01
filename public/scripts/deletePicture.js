@@ -3,10 +3,9 @@ const errorToast = document.getElementById('errorToast');
 
 
 export default function deletePicture(id) {
-  console.log(`deletePicture(${id})`)
   const deleteBtnModal = document.getElementById("deleteBtnModal");
   deleteBtnModal.addEventListener('click', async () => {
-    const response = await fetch(`/pictures/${id}/delete`, {
+    const response = await fetch(`/api/pictures/${id}/delete`, {
       method: 'delete'
     });
     if (!response.ok) {

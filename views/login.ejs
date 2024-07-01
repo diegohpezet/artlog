@@ -5,7 +5,7 @@
     <p>Please, feel welcome to come in</p>
   </div>
   <div class="mx-auto w-75 mw-50">
-    <form method="post" action="/auth/signin">
+    <form method="post" action="/api/auth/signin">
       <div class="form-group">
         <label for="username">Username</label>
         <input type="text" class="form-control" id="username" name="username">
@@ -16,7 +16,7 @@
       </div>
       <div class="m-3 text-center d-grid">
         <button type="submit" class="btn btn-block btn-dark py-2">Login</button>
-        <p class="mt-2">Don't have an account? <a href="/register">Sign up now!</a></p>
+        <p class="mt-2">Don't have an account? <a href="/auth/register">Sign up now!</a></p>
         <% if (typeof error !=='undefined' ) { %>
           <p class="mt-5 text-danger">
             <%= error %>

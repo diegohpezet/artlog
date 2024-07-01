@@ -6,7 +6,7 @@ const likedPicturesPane = document.getElementById("user-liked-pictures");
 
 const getPictures = async () => {
   const userId = picturesPane.getAttribute("data-user-id");
-  const response = await fetch(`/users/${userId}/pictures`);
+  const response = await fetch(`/api/users/${userId}/pictures`);
   if (!response.ok) {
     console.log("An error has occurred");
   }
@@ -38,7 +38,7 @@ const getPictures = async () => {
 
 const getLikedPictures = async () => {
   const userId = likedPicturesPane.getAttribute("data-user-id");
-  const response = await fetch(`/users/${userId}/pictures/liked`);
+  const response = await fetch(`/api/users/${userId}/pictures/liked`);
   if (!response.ok) {
     console.log("An error has ocurred");
   }

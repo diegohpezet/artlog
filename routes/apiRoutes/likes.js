@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const authenticateToken = require('../middlewares/authenticateToken');
-const LikeController = require('../controllers/LikeController');
+const authenticateToken = require('../../middlewares/authenticateToken');
+const LikeController = require('../../controllers/LikeController');
 
 router.use(authenticateToken)
 

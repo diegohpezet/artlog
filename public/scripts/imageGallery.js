@@ -4,7 +4,7 @@ import { createCard } from "./createCard.js";
 const gallery = document.getElementById("gallery");
 
 const getPictures = () => {
-  fetch('/pictures')
+  fetch('/api/pictures')
     .then(response => response.json())
     .then(data => {
       data.forEach(picture => {

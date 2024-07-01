@@ -59,7 +59,7 @@ export function createCard(data, container, options = {
       // Send like request
 
       if (data.isLiked) {
-        fetch(`http://localhost:3000/likes?picture=${data.id}`, {
+        fetch(`/api/likes?picture=${data.id}`, {
           method: 'DELETE'
         })
         likeBtn.classList.toggle('btn-outline-danger');
@@ -68,7 +68,7 @@ export function createCard(data, container, options = {
         data.isLiked = !data.isLiked
 
       } else {
-        fetch(`http://localhost:3000/likes?picture=${data.id}`, {
+        fetch(`/api/likes?picture=${data.id}`, {
           method: 'POST'
         })
         likeBtn.classList.toggle('btn-outline-danger');

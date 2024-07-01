@@ -107,19 +107,6 @@ const UserController = {
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
-  },
-
-  renderProfile: async (req, res) => {
-    const { id } = req.params;
-    try {
-      const user = await User.findByPk(id);
-      if (!user) {
-        return res.redirect('/')
-      }
-      return res.render('profile', { user });  
-    } catch (error) {
-      return res.redirect('/')
-    }
   }
 };
 
