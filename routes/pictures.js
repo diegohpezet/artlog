@@ -11,6 +11,7 @@ router.use(authenticateToken)
 router.get('/', PictureController.getAll);
 router.get('/:id', PictureController.getById);
 router.get('/:id/download', PictureController.download);
+router.delete('/:id/delete', PictureController.delete);
 router.post('/', fileUpload({useTempFiles: true}), PictureController.create);
 
 module.exports = router
