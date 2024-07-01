@@ -57,10 +57,13 @@
           <a class="nav-link" href="#">Following</a>
         </li>
       </ul>
-      <ul class="navbar-nav">
+      <ul class="navbar-nav" style="overflow-x: auto;">
+        <% categories = ["Nature", "Portraits", "Architecture", "Sports", "Fashion", "Food", "Technology", "Travel", "Art", "Music", "Abstract", "TV", "Modern"] %>
+        <% categories.sort().forEach(category => { %>
         <li class="nav-item">
-          <a class="nav-link" href="#">Some categories here...</a>
+          <a class="nav-link text-secondary" href="/pictures/categories/<%= category %>"><%= category %></a>
         </li>
+        <% }) %>
       </ul>
     </div>
   </nav>

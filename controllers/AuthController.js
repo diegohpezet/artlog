@@ -32,7 +32,7 @@ const AuthController = {
 
       // Create user
       const newUser = await User.create({ username, password: hashedPassword, email, profilePicture });
-      res.status(200).redirect('/login');
+      res.status(200).redirect('/auth/login');
     } catch (err) {
       res.status(500).render('register', { error: err.message });
     }
