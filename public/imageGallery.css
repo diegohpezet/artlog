@@ -35,3 +35,7 @@
 .picture:hover .options {
   opacity: 1;
 }/*# sourceMappingURL=style.css.map */
+
+#single-picture-section .picture .picture-img {
+  height: 100%;
+}
