@@ -8,5 +8,6 @@ router.use(authenticateToken)
 
 router.post('/', LikeController.like);
 router.delete('/', LikeController.unlike);
+router.get('/:id', LikeController.getUserLikedPictures);
 
 module.exports = router;

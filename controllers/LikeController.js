@@ -1,6 +1,23 @@
 const { Like } = require('../models');
 
 const LikeController = {
+  getUserLikedPictures: async (req, res) => {
+    const user = req.user;
+    if (!user) {
+      return res.status(403).json({error: "Error getting user"})
+    }
+
+    try {
+      const likes = await Like.findAll({where: {
+        user: user.id
+      }})
+
+      return res.status(200).json(likes);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({error: "Error getting current user liked pictures"})
+    }
+  },
   like: async (req, res) => {
     const user = req.user;
     const { picture } = req.query;
