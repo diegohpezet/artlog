@@ -10,15 +10,12 @@ const authRoutes = require('./auth');
 const pictureRoutes = require('./pictures');
 const userRoutes = require('./users');
 const likeRoutes = require('./likes');
+const followRoutes = require('./follows');
 
 router.use('/auth', authRoutes);
 router.use('/pictures', pictureRoutes);
 router.use('/users', userRoutes);
 router.use('/likes', likeRoutes);
-
-
-router.get('/', (req, res) => {
-  res.render("index", { user: req.user});
-});
+router.use('/follow', followRoutes);
 
 module.exports = router
