@@ -4,9 +4,11 @@
       <a class="navbar-brand d-none d-sm-block" href="/">
         <img src="/images/logo.png" class="img-responsive" width="50" height="50" />
       </a>
-      <form class="d-flex flex-grow-1" role="search">
-        <input class="form-control me-2 rounded-pill" type="search" placeholder="Search on ArtLog"
-          aria-label="Search">
+      <form class="d-flex flex-grow-1" method="get" action="/users">
+        <div class="input-group">
+          <input class="form-control shadow-none" id="searchbar" name="username" type="text" placeholder="Search users on ArtLog">
+          <button class="btn btn-secondary" id="searchbutton" type="submit"><i class="bi bi-search"></i></button>
+        </div>
       </form>
       <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
         aria-controls="offcanvasDarkNavbar">
@@ -25,19 +27,21 @@
             </li>
             <%if (isLoggedIn) { %>
               <li class="nav-item">
-                <a class="nav-link" href="/users/<%= currentUser.id %>"><i class="bi bi-person d-md-none"></i> Profile</a>
+                <a class="nav-link" href="/users/<%= currentUser.id %>"><i class="bi bi-person d-md-none"></i>
+                  Profile</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#uploadContent"><i class="bi bi-upload d-md-none"></i> Upload content!</a>
+                <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#uploadContent"><i
+                    class="bi bi-upload d-md-none"></i> Upload content!</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/api/auth/signout"><i class="bi bi-box-arrow-left d-md-none"></i> Logout</a>
               </li>
-            <% } else { %>
-            <li class="nav-item">
-              <a class="nav-link" href="/auth/login">Sign in to upload content!</a>
-            </li>
-            <% } %>
+              <% } else { %>
+                <li class="nav-item">
+                  <a class="nav-link" href="/auth/login">Sign in to upload content!</a>
+                </li>
+                <% } %>
           </ul>
           <div class="d-block d-md-none">
             <hr />
@@ -58,12 +62,15 @@
         </li>
       </ul>
       <ul class="navbar-nav" style="overflow-x: auto;">
-        <% categories = ["Nature", "Portraits", "Architecture", "Sports", "Fashion", "Food", "Technology", "Travel", "Art", "Music", "Abstract", "TV", "Modern"] %>
-        <% categories.sort().forEach(category => { %>
-        <li class="nav-item">
-          <a class="nav-link text-secondary" href="/pictures/categories/<%= category %>"><%= category %></a>
-        </li>
-        <% }) %>
+        <% categories=["Nature", "Portraits" , "Architecture" , "Sports" , "Fashion" , "Food" , "Technology" , "Travel"
+          , "Art" , "Music" , "Abstract" , "TV" , "Modern" ] %>
+          <% categories.sort().forEach(category=> { %>
+            <li class="nav-item">
+              <a class="nav-link text-secondary" href="/pictures/categories/<%= category %>">
+                <%= category %>
+              </a>
+            </li>
+            <% }) %>
       </ul>
     </div>
   </nav>

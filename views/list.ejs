@@ -1,0 +1,24 @@
+<% extend('layout'); %>
+
+  <div class="mt-5">
+    <h2>
+      <%= title %>
+    </h2>
+    <ul class="list-group list-group-flush">
+      <% if (data.length >= 1 ) { data.forEach((element)=> { %>
+        <a href="/users/<%= element.id %>" class="list-group-item list-group-item-action d-flex justify-content-between">
+          <div class="d-flex">
+            <img class="profile-picture" src="<%= element.profilePicture %>" alt="">
+            <span class="ms-2 my-auto">
+              <%= element.username %>
+            </span>
+          </div>
+          <div class="d-none d-sm-flex">
+            <p class="my-auto text-muted">Member since: <%= element.createdAt.toLocaleDateString() %></p>
+          </div>
+        </a>
+        <% })} else { %>
+          <p>No results found</p>
+        <% } %>
+    </ul>
+  </div>

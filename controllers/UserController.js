@@ -1,10 +1,19 @@
 const bcrypt = require('bcrypt');
-const { User, Like, Picture } = require('../models')
+const { User, Like, Picture } = require('../models');
+const { Op } = require('sequelize');
 
 const UserController = {
   getAll: async (req, res) => {
     try {
-      const users = await User.findAll();
+      const queryParams = {};
+
+      if (req.query.username && req.query.username.length >= 3) {
+        queryParams.where = { username: {
+          [Op.like]: `${req.query.username}%`
+        } }  
+      }
+
+      const users = await User.findAll(queryParams);
       res.json(users);
     } catch (err) {
       res.status(500).json({ error: err.message });

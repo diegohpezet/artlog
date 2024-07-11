@@ -3,6 +3,27 @@ const router = express.Router();
 
 // Import user model
 const { User } = require('../../models');
+const { Op } = require('sequelize');
+
+router.get('/', async (req, res) => {
+  const queryParams = {}
+  try {
+    const { username } = req.query;
+    if (username) {
+      queryParams.where = {
+        username: {
+          [Op.substring]: username
+        }
+      }
+    }
+    const users = await User.findAll(queryParams);
+    console.log("users: ", users)
+    return res.render('list', { title: "Found users", data: users });
+  } catch (error) {
+    console.error(error);
+    return res.redirect('/')
+  }
+})
 
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
