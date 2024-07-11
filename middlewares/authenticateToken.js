@@ -7,12 +7,21 @@ const authenticateToken = (req, res, next) => {
       const decoded = jwt.verify(token, 'secret');
       req.user = decoded;
       res.locals.isLoggedIn = true; // Set a local variable for use in views
-      res.locals.user = decoded;
+      res.locals.currentUser = decoded;
     } catch (error) {
-      res.locals.isLoggedIn = false;
+      if (error.name === 'TokenExpiredError') {
+        res.locals.isLoggedIn = false;
+        res.locals.currentUser = false;
+        console.log('Token is expired');
+
+        // Clear the expired cookie
+        res.clearCookie('token');
+      }
     }
   } else {
     res.locals.isLoggedIn = false;
+    res.locals.currentUser = false;
+    console.log('Error verifying token:');
   }
   next();
 };
