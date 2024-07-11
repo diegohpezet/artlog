@@ -5,23 +5,43 @@ const { User, Like, Picture } = require('../models')
 const PictureController = {
   getAll: async (req, res) => {
     try {
-      const pictures = await Picture.findAll({
+      // Set options for query
+      const queryOptions = {
         include: [
           { model: User },
           { model: Like, as: 'likedBy' }
+        ],
+        where: [],
+        order: [
+          ['createdAt', 'DESC']
         ]
-      });
-      res.json(pictures);
+      }
+
+      // Filter pictures by user (optional)
+      if (req.query.user) {
+        queryOptions.where.push({ user: req.query.user });
+      }
+
+      // Filter pictures liked by some user
+      if (req.query.likedBy) {
+        queryOptions.include[1].where = req.query.likedBy ? { user: req.query.likedBy } : {}
+      }
+
+      // Run query and send data to client
+      const pictures = await Picture.findAll(queryOptions);
+      return res.status(200).json(pictures);
     } catch (error) {
-      console.log(error)
-      res.status(500).json({ error: 'Error retrieving pictures' });
+      console.log(error);
+      return res.status(500).json({ error: 'Error retrieving pictures' });
     }
   },
 
   getById: async (req, res) => {
     const { id } = req.params;
     try {
-      const picture = await Picture.findByPk(id);
+      const picture = await Picture.findByPk(id, {
+        include: [{ model: User }]
+      });
       if (picture) {
         res.json(picture);
       } else {
@@ -71,23 +91,27 @@ const PictureController = {
     const { id } = req.params;
     const userId = req.user.id;
     try {
-      const picture = await Picture.findOne({id: id, user: userId});
+      const picture = await Picture.findOne({ id: id });
 
       if (!picture) {
-        return res.status(404).json({error: 'Picture not found!'});
+        return res.status(404).json({ error: 'Picture not found!' });
       }
 
-      // Remove picture from database
-      await picture.destroy()
+      if (picture.user == userId) {
+        // Remove picture from database
+        await picture.destroy()
 
-      // Remove picture from cloud
-      const public_id = "artlog" + picture.url.replace(/\.[^/.]+$/, "").split("/artlog")[1]
-      await cloudinaryRemoveImage(public_id)
+        // Remove picture from cloud
+        const public_id = "artlog" + picture.url.replace(/\.[^/.]+$/, "").split("/artlog")[1]
+        await cloudinaryRemoveImage(public_id)
 
-      return res.status(200).json({message: 'Picture deleted successfully'});
+        return res.status(200).json({ message: 'Picture deleted successfully' });
+      } else {
+        return res.status(401).json({ error: 'Unauthorized' });
+      }
     } catch (error) {
       console.log(error);
-      return res.status(500).json({error: 'Error trying to delete picture'});
+      return res.status(500).json({ error: 'Error trying to delete picture' });
     }
   }
 };
