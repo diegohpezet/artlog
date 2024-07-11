@@ -19,6 +19,8 @@ app.use('/', express.static(__dirname + '/public'))
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
 app.use('/icons', express.static(__dirname + '/node_modules/bootstrap-icons/font'));
+app.use('/sweetalert2', express.static(__dirname + '/node_modules/sweetalert2'));
+app.use('/toastify', express.static(__dirname + '/node_modules/toastify-js/src'));
 
 // Set up routes
 app.use('/', require('./routes/viewRoutes'));

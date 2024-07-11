@@ -127,12 +127,24 @@ function renderDownloadButton(picture_id) {
   downloadBtn.addEventListener('click', async () => {
     if (await downloadPicture(picture_id)) {
       // Show success toast
-      const toast = bootstrap.Toast.getOrCreateInstance(downloadToast)
-      toast.show();
+      Toastify({
+        text: "Picture downloaded successfully!",
+        duration: 2000,
+        style: {
+          background: "linear-gradient(to right, #12bf33, #00ff17)"
+        },
+        gravity: "bottom"
+      }).showToast()
     } else {
       // Show failure toast
-      const toast = bootstrap.Toast.getOrCreateInstance(errorToast)
-      toast.show();
+      Toastify({
+        text: "Error downloading picture!",
+        duration: 2000,
+        style: {
+          background: "linear-gradient(to right, #e70202, #f43b3b)"
+        },
+        gravity: "bottom"
+      }).showToast()
     }
   })
 
