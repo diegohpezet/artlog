@@ -55,15 +55,15 @@ const PictureController = {
   create: async (req, res) => {
     try {
       if (!req.files.image) {
-        res.json({ error: "No se ha seleccionado ninguna imagen!!" })
+        return res.json({ error: "No se ha seleccionado ninguna imagen!!" })
       }
       const image = req.files.image
       const result = await cloudinaryUpload(image.tempFilePath)
-      console.log(result)
-      await Picture.create({ url: result.secure_url, user: req.user.id })
-      res.json({ message: "Imagen subida exitosamente!" })
+      console.log("Categoria de la foto:", req.body.category);
+      await Picture.create({ url: result.secure_url, user: req.user.id, category: req.body.category })
+      return res.json({ message: "Imagen subida exitosamente!" })
     } catch (error) {
-      res.json({ error: `Error uploading image: ${error}` })
+      return res.json({ error: `Error uploading image: ${error}` })
     }
   },
 
