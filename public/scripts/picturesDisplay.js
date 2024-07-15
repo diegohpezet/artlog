@@ -39,8 +39,16 @@ document.addEventListener('DOMContentLoaded', async () => {
   const userGallery = document.getElementById("user-pictures");
   const userLikedPicturesGallery = document.getElementById("user-liked-pictures");
 
+  const searchParams = new URLSearchParams(window.location.search);
+
+
   if (gallery) {
-    const allPictures = await getAllPictures();
+    let allPictures = []
+    if (searchParams.has('category')) {
+      allPictures = await getAllPictures(searchParams.get('category'));
+    } else {
+      allPictures = await getAllPictures();
+    }
     displayPictureList(allPictures, gallery);
   }
 

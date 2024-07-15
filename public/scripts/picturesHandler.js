@@ -2,8 +2,14 @@
  * Gets all pictures data from database
  * @returns {Array[Object]} A list of picture objects
  */
-export async function getAllPictures() {
-  const response = await fetch('/api/pictures');
+export async function getAllPictures(category = null) {
+  console.log('Category:', category)
+  let url = '/api/pictures'
+  if (category) url += `?category=${category}`;
+
+  console.log(url)
+
+  const response = await fetch(url);
   const pictures = await response.json();
 
   return pictures

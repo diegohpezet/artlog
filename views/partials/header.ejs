@@ -55,10 +55,10 @@
     <div class="container-fluid">
       <ul class="navbar-nav border-end">
         <li class="nav-item">
-          <a class="nav-link" href="#">All</a>
+          <a class="nav-link" href="/">All</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Following</a>
+          <a class="nav-link" href="/following">Following</a>
         </li>
       </ul>
       <ul class="navbar-nav" style="overflow-x: auto;">
@@ -66,7 +66,7 @@
           , "Art" , "Music" , "Abstract" , "TV" , "Modern" ] %>
           <% categories.sort().forEach(category=> { %>
             <li class="nav-item">
-              <a class="nav-link text-secondary" href="/pictures/categories/<%= category %>">
+              <a class="nav-link text-secondary" href="/?category=<%= category.toLowerCase() %>">
                 <%= category %>
               </a>
             </li>

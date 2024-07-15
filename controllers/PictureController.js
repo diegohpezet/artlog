@@ -27,6 +27,11 @@ const PictureController = {
         queryOptions.include[1].where = req.query.likedBy ? { user: req.query.likedBy } : {}
       }
 
+      // Filter pictures by category
+      if (req.query.category) {
+        queryOptions.where.push({ category: req.query.category });
+      }
+
       // Run query and send data to client
       const pictures = await Picture.findAll(queryOptions);
       return res.status(200).json(pictures);
