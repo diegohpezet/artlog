@@ -14,7 +14,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form method="post" action="/api/pictures" enctype="multipart/form-data">
+        <form method="post" action="/api/pictures" id="uploadForm" enctype="multipart/form-data">
           <!--Image-->
           <div>
             <div class="mb-4 d-flex justify-content-center">
@@ -24,6 +24,23 @@
               <img src="" alt="" class="d-none w-100" id="selectedImage">
               <input type="file" class="form-control d-none" name="image" id="userFile" accept="image/*"
                 onchange="displaySelectedImage(event, 'selectedImage')" />
+            </div>
+            <div class="mb-4 d-none" id="categorySelection">
+              <label for="category" class="form-label" id="categoryLabel">Select a tag for your picture <span class="text-danger">*</span></label>
+              <select name="category" class="form-select" id="categorySelect">
+                <option value="" disabled selected>Choose a category for your picture</option>
+                <option value="architecture">Architecture</option>
+                <option value="art">Art</option>
+                <option value="fashion">Fashion</option>
+                <option value="modern">Modern</option>
+                <option value="music">Music</option>
+                <option value="nature">Nature</option>
+                <option value="portraits">Portraits</option>
+                <option value="sports">Sports</option>
+                <option value="tv">TV</option>
+                <option value="technology">Technology</option>
+                <option value="travel">Travel</option>
+              </select>
             </div>
           </div>
           <div class="modal-footer">
@@ -39,6 +56,7 @@
 <script>
   function displaySelectedImage(event, elementId) {
     const input = document.getElementById('fileUploadLabel')
+    const categorySelection = document.getElementById('categorySelection');
     const selectedImage = document.getElementById(elementId);
     const fileInput = event.target;
 
@@ -49,6 +67,8 @@
         selectedImage.src = e.target.result;
         selectedImage.classList.remove('d-none');
         input.classList.add('d-none');
+
+        categorySelection.classList.remove('d-none');
       };
 
       reader.readAsDataURL(fileInput.files[0]);
@@ -57,13 +77,66 @@
 
   function discardChanges(event) {
     const selectedImage = document.getElementById('selectedImage');
+    const categorySelection = document.getElementById('categorySelection');
     const fileInput = document.getElementById('userFile');
     const input = document.getElementById('fileUploadLabel');
 
     selectedImage.src = '';
     selectedImage.classList.add('d-none');
+    categorySelection.classList.add('d-none');
     input.classList.remove('d-none');
     
     fileInput.value = '';
+  }
+
+  const form = document.getElementById('uploadForm');
+  form.onsubmit = async function(e) {
+    e.preventDefault();
+    
+    const userFile = document.getElementById('userFile');
+    const categorySelect = document.getElementById('categorySelect');
+
+    if (!userFile || categorySelect.value == "") {
+      Toastify({
+        text: "Some values are empty!",
+        duration: 2000,
+        gravity: "bottom"
+      }).showToast()
+      return
+    }
+
+    const formData = new FormData();
+    formData.append('image', userFile.files[0]);
+    formData.append('category', categorySelect.value);
+
+    const response = await fetch('/api/pictures', {
+      method: 'POST',
+      body: formData
+    });
+    const data = await response.json();
+    
+    if (data.error) {
+      Toastify({
+        text: "Error uploading picture!",
+        duration: 2000,
+        style: {
+          background: "linear-gradient(to right, #e70202, #f43b3b)"
+        },
+        gravity: "bottom"
+      }).showToast();
+      return;
+    }
+
+    Toastify({
+      text: "Picture uploaded successfully!",
+      duration: 2000,
+      style: {
+        background: "linear-gradient(to right, #12bf33, #00ff17)"
+      },
+      gravity: "bottom"
+    }).showToast()
+    setTimeout(() => {
+      location.reload();
+    }, 2000)
   }
 </script>

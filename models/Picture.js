@@ -13,15 +13,9 @@ const Picture = sequelize.define('Picture', {
     type: DataTypes.STRING,
     allowNull: false
   },
-  tags: {
+  category: {
     type: DataTypes.STRING,
     allowNull: false,
-    get() {
-        return this.getDataValue('tags').split(';')
-    },
-    set(val) {
-       this.setDataValue('tags',val.join(';'));
-    },
     defaultValue: ""
   },
   createdAt: {
